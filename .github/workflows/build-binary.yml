@@ -1,0 +1,61 @@
+name: Create and publish the binary
+
+# Configures this workflow to run every time a new tag is pushed.
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+# There is a single job in this workflow.
+# It's configured to run on the latest available version of Ubuntu.
+jobs:
+  build-and-store-binary:
+    runs-on: ubuntu-latest
+    # Sets the permissions granted to the `GITHUB_TOKEN` for the actions in this job.
+    # permissions:
+    #   contents: read
+    #  packages: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Install go
+        uses: actions/setup-go@v4
+        with:
+          go-version: 1.21
+      - name: Install dependencies
+        run: go get .
+      - name: Build linux/amd64 binary
+        run: go build -o ./bin/gowt_${{github.ref_name}}.linux.amd64 ./src/main.go
+        env:
+          CGO_ENABLED: 0
+          GOOS: linux
+          GOARCH: amd64
+      - name: Build linux/arm64 binary
+        run: go build -o ./bin/gowt_${{github.ref_name}}.linux.arm64 ./src/main.go
+        env:
+          CGO_ENABLED: 0
+          GOOS: linux
+          GOARCH: arm64
+      - name: Build windows/amd64 binary
+        run: go build -o ./bin/gowt_${{github.ref_name}}.windows.amd64.exe ./src/main.go
+        env:
+          CGO_ENABLED: 0
+          GOOS: windows
+          GOARCH: amd64
+      - name: Build darwin/amd64 binary
+        run: go build -o ./bin/gowt_${{github.ref_name}}.darwin.amd64 ./src/main.go
+        env:
+          CGO_ENABLED: 0
+          GOOS: darwin
+          GOARCH: amd64
+      - name: Build darwin/arm64 binary
+        run: go build -o ./bin/gowt_${{github.ref_name}}.darwin.arm64 ./src/main.go
+        env:
+          CGO_ENABLED: 0
+          GOOS: darwin
+          GOARCH: arm64
+      - name: Upload binary as artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: GoWT ${{github.ref_name}}
+          path: ./bin/gowt_${{github.ref_name}}.linux.amd64

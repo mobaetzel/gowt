@@ -1,0 +1,23 @@
+{
+    "HeaderTitle": "About the header",
+    "FooterTitle": "About the footer",
+    "FirstName": "First Name with ßäöü",
+    "LastName": "Last Name with $§)(/?!&%$§",
+    "Address": "Exampledrive 123\n1234 Examplecity",
+    "Email": "Email",
+    "Telephone": "Telephone",
+    "AppName": "Example Data",
+    "Items": [
+        {
+            "Name": "<test>Item 1</test>"
+        },
+        {
+            "Name": "Item 2"
+        },
+        {
+            "Name": "Item 3"
+        }
+    ],
+    "ConditionA": true,
+    "ConditionB": false
+}

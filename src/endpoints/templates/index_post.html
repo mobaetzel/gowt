@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Word Template Renderer</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            font-family: sans-serif;
+            margin: 0;
+        }
+        .content {
+            width: 20em;
+            margin: 0 auto;
+        }
+        button {
+            display: block;
+            border: 1px solid black;
+            padding: 0.5em 0.75em;
+            text-transform: uppercase;
+            background: none;
+            color: black;
+            width: 100%%;
+            border-radius: 0.125em;
+            cursor: pointer;
+            margin-top: 2em;
+        }
+        button:hover {
+            background: black;
+            color: white;
+        }
+        .control {
+            margin-top: 1em;
+        }
+        input {
+            display: block;
+            margin-top: 0.25em;
+            width: 100%%;
+            padding: 0.5em 0.75em;
+            border: 1px solid black;
+            border-radius: 0.125em;
+        }
+    </style>
+</head>
+<body>
+<div class="content">
+    <h1>Word Template Renderer</h1>
+    <p>
+        Choose a template to render and enter all values.
+    </p>
+    <form
+            enctype="multipart/form-data"
+            method="post"
+            action="/"
+    >
+        <label for="file" hidden>
+            Template
+        </label>
+        <input
+                id="file"
+                type="file"
+                name="file"
+                accept=".docx,.odt"
+                required
+        >
+
+        %s
+
+        <button>
+            Render
+        </button>
+    </form>
+</div>
+</body>
+</html>
